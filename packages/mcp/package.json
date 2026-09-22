@@ -1,0 +1,32 @@
+{
+  "name": "doubleoh-mcp",
+  "version": "0.1.0",
+  "description": "The DoubleOh fix loop as an MCP server: skills_for, request_fix, report_skill.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "doubleoh-mcp": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "@doubleoh/sdk": "0.1.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "pretypecheck": "cd ../sdk && bun run build",
+    "prebuild": "cd ../sdk && bun run build"
+  },
+  "devDependencies": {
+    "bun-types": "^1.4.0"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

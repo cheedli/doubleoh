@@ -1,0 +1,4 @@
+model:
+  provider: anthropic
+  credential_secret_ref: anthropic-api-key
+  default_model: claude-sonnet-5

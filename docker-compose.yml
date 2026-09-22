@@ -1,0 +1,37 @@
+# DoubleOh, self-hosted. One container: the app, the API, the browser the agents drive, and its
+# own PostgreSQL. Nothing else to provision.
+#
+#   cp .env.example .env      # fill it, every secret has its command next to it
+#   docker compose up -d
+#   open http://localhost:3001
+#
+# Already running PostgreSQL with pgvector? Set DATABASE_URL in .env, set EMBEDDED_POSTGRES=off,
+# and drop the postgres volume below.
+
+name: doubleoh
+
+services:
+  doubleoh:
+    image: ghcr.io/cheedli/doubleoh:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      EMBEDDED_POSTGRES: ${EMBEDDED_POSTGRES:-on}
+    ports:
+      - "3001:3001"
+    volumes:
+      # The database. Without this a redeploy takes the audit trail with it.
+      - postgres:/var/lib/postgresql/data
+      # Files the agents' browser downloads or creates.
+      - workspace:/workspace
+      # Browser profiles: logins survive a restart.
+      - profiles:/profiles
+    # Turns setuid off for anything the image does not name; see the security notes in the docs.
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+
+volumes:
+  postgres:
+  workspace:
+  profiles:

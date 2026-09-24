@@ -1,0 +1,38 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.cheedli/doubleoh-mcp",
+  "description": "The fix desk for AI agents: skills learned from human fixes, a person on the agent's screen when it is stuck.",
+  "version": "0.1.1",
+  "websiteUrl": "https://doubleoh.ai",
+  "repository": {
+    "url": "https://github.com/cheedli/doubleoh",
+    "source": "github",
+    "subfolder": "packages/mcp"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "doubleoh-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DOUBLEOH_API_KEY",
+          "description": "Your DoubleOh API key (starts with oo_). Issued in the console under Keys and settings.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "DOUBLEOH_BASE_URL",
+          "description": "Your own DoubleOh, when self-hosting. Defaults to https://api.doubleoh.ai.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}

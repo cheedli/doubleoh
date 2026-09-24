@@ -1,0 +1,27 @@
+# Publishes doubleoh-mcp to the MCP registry (registry.modelcontextprotocol.io) from server.json.
+#
+# Run it after the npm release of the version server.json names: the registry checks that the npm
+# package exists and that its package.json carries `mcpName: io.github.cheedli/doubleoh-mcp`.
+# Authentication is GitHub OIDC, which grants the io.github.cheedli namespace to this repository;
+# no token to store.
+name: Publish to the MCP registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install mcp-publisher
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --help | head -2
+      - run: ./mcp-publisher validate
+      - run: ./mcp-publisher login github-oidc
+      - run: ./mcp-publisher publish

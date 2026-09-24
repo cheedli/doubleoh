@@ -1,6 +1,13 @@
 {
   "name": "doubleoh-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "io.github.cheedli/doubleoh-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cheedli/doubleoh.git",
+    "directory": "packages/mcp"
+  },
+  "homepage": "https://doubleoh.ai",
   "description": "The DoubleOh fix loop as an MCP server: skills_for, request_fix, report_skill.",
   "license": "MIT",
   "type": "module",
